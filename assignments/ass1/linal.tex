@@ -1,0 +1,207 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper,top=0cm, margin=0.85in]{geometry}
+
+\usepackage{textcmds} %more symbols
+\usepackage{fontspec} %more fonts
+
+%for math
+\usepackage{amsmath, amssymb, amsfonts} %standard
+\usepackage{youngtab} % makes squares for math diagrams
+\usepackage{microtype} %% <-- added
+%-----------------------------------------------------------           
+
+%\usepackage{sectsty}
+%for lists and numbers
+\usepackage{enumitem}
+%-----------------------------------------------------------
+
+% Doc setting
+\usepackage[english]{babel} % Replace `english' with e.g. `spanish' to change the document language
+\usepackage{setspace} %to set spacing bw words and lines
+\usepackage{changepage}
+% \setlength\parindent{0pt}
+
+%footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% \fancyhf{0pt} % sets both header and footer to nothing
+% \renewcommand{\footrulewidth}{0pt}
+% \renewcommand{\headrulewidth}{0pt} %remove headerline
+
+% \fancyfoot[RE,RO]{\thepage}
+\fancyfoot[C]{MATH230 | Shubhro Gupta}
+\fancyfoot[L]{Assignment 1}
+\fancyfoot[R]{\thepage}
+\pagestyle{fancy}
+%-----------------------------------------------------------
+
+%for pictures and graphs
+\usepackage{graphicx} %add image
+\usepackage{adjustbox}
+
+\usepackage{pgfplots} %for graphing plotting
+\pgfplotsset{compat=1.18, width=10cm}
+%-----------------------------------------------------------
+
+%for code
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyvrb} %for coding blocks
+%\usepackage{algorithm}
+%\usepackage{algpseudocode} %for pseudocode
+%\usepackage{algorithm, algpseudocode}
+
+%\usepackage{lstfiracode} %firacode
+\usepackage[framemethod=tikz]{mdframed} %adding background to lstlisting
+\usepackage[ruled,vlined,boxed]{algorithm2e} %for pseudocode lines
+
+
+
+%for colors and links
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+\usepackage[many]{tcolorbox}  % for colored boxes
+\usepackage{color} % to get colors
+\usepackage{xcolor} %more colors options and flexibility
+\usepackage{transparent}
+
+
+%-----------------------------------------------------------------------------
+%custom commands
+
+%code
+\newcommand{\problem
+}[2]{
+\begin{mdframed}
+    Problem \textbf{#1} \hfill #2
+\end{mdframed}
+}
+\newcommand{\codecap}[2]{{\vspace{4pt}{\emph{#1}}} \hfill \href{#2}{Link to the code\ }\vspace{25pt}}
+\newcommand{\code}[1]{{\texttt{#1}}}
+
+%math
+\newcommand{\bigo}[1]{$O(#1)$ }
+\newcommand{\thetan}[1]{$\theta(#1)$}
+% \newcommand{\vector}[1]{$\overrightarrow{#1}$}
+
+\newcommand{\vecset}[2]{\{ {#1}_1, {#1}_2, {#1}_3,  \dots,  {#1}_{#2}\}}
+
+%display
+\newcommand{\link}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+\newcommand{\inlink}[1]{\underline{\emph{\link[black]{#1}{#1}}}}
+
+
+%header
+\newcommand{\heading}[5]{
+\begin{large}
+\noindent\emph{#1}\smallskip ~\\
+Professor #3 \hfill Week #2 \smallskip ~\\
+\textbf{Shubhro Gupta} \hfill Due #4 ~\\
+\end{large} \medskip ~\\
+{\emph{Collaborators: #5}}~\\
+\hrule
+\vspace{50pt}
+~\\
+}
+
+% \newcommand\dunderline[3][-1pt]{{%
+%   \sbox0{#3}%
+%   \ooalign{\copy0\cr\rule[\dimexpr#1-#2\relax]{\wd0}{#2}}}}
+
+%new section
+\newcommand{\asec}[1]{{\vspace{20pt}\large\dunderline[-3pt]{1pt}{\textbf{#1}}} ~\\}
+
+
+
+
+%-----------------------------------------------------------------------------
+%title
+\usepackage{algpseudocode}
+\begin{document}
+
+\heading{Linear Algebra}{1}{Shuchita Goyal}{October 10, 2024}{none}
+\\
+\problem{1}{1.5 + 0.5 \emph{Points}}
+\textbf{To Show.} If $A$ is a square matrix of order $n \times n$, then there exists a symmetric matrix $B$ and a skew-symmetric matrix $C$ such that $A = B + C$.\\
+\textbf{Solution. } A matrix $B$ is symmetrical if $b_{ij} = b_{ji}$ for all $i, j$. A matrix $C$ is skew-symmetric if $c_{ij} = -c_{ji}$ for all $i, j \in \mathbb{N}$.\\
+Let $B = A + A^T$, then $(B)^T = (A + A^T)^T = A^T + (A^T)^T = A^T + A = B$. Which implies $B$ is symmetric.\\ Similarly consider $C = A - A^T$, then $(C)^T = (A - A^T)^T = A^T - (A^T)^T = A^T - A = -C$. Which implies $C$ is skew-symmetric.\\
+Adding $B$ and $C$ we get $B + C = A + A^T + A - A^T = 2A$. Dividing by 2 we get $A =  \frac{1}{2} B  + \frac{1}{2} C$. Since $B$ is symmetric, $\frac{B}{2}$ is symmetric. Similarly $\frac{C}{2}$ is skew-symmetric as $C$ is skew-symmetric.\\
+Thus, we have shown that for any square matrix $A$, there exists a symmetric matrix $B$ and a skew-symmetric matrix $C$ such that $A = B + C \qquad \square.$ \\
+\\
+\textbf{To Show. } $B$ and $C$ are unique.\\
+\textbf{Solution. } Let $B_1$ and $C_1$ be symmetric and skew-symmetric matrices such that $A = B_1 + C_1$. Let $B_2$ and $C_2$ be another symmetric and skew-symmetric matrices such that $A = B_2 + C_2$.
+Then $B_1 + C_1 = B_2 + C_2 \implies B_1 - B_2 = C_2 - C_1$. Since $B_1$ and $B_2$ are symmetric, $B_1 - B_2$ is symmetric. Similarly, $C_2 - C_1$ is skew-symmetric. The only matrix which is both symmetric and skew-symmetric is the zero matrix. Thus, $B_1 = B_2$ and $C_1 = C_2 \qquad \square$.
+\\
+
+\problem{2}{1.5 \emph{Points}}
+\textbf{To Do. } Write the row vector $z = (3, 2) \in \mathbb{R}^{1 \times 2}$ as a linear combination of $u, v, w \in \mathbb{R}^{1 \times 2}$ where $u = (1, 1), v = (10, 7), w = (3, 13)$.\\
+\textbf{Solution. } Linear combination of $u, v, w$ is given by $(3, 2) = \alpha_{1} u + \alpha_{2} v + \alpha_{3} w$, where $\alpha \in \mathbb{R}$.\\
+Writing it in matrix form, we get $\begin{bmatrix} 3 \\ 2 \end{bmatrix} = \begin{bmatrix} 1 & 10 & 3 \\ 1 & 7 & 13 \end{bmatrix} \begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ \alpha_{3} \end{bmatrix}$.
+In augmented form we get,
+\begin{align*}
+	\begin{bmatrix} 1 & 10 & 3 & | & 3 \\ 1 & 7 & 13 & | & 2 \end{bmatrix} & \xrightarrow{L_2 - L1} \begin{bmatrix} 1 & 10 & 3 & | & 3 \\ 0 & -3 & 10 & | & -1 \end{bmatrix} \\
+\end{align*}
+the augmented matrix is now in row echelon form (pivot 1 = 1, pivot 2 = -3). using back substitution in row$_2$, let $\alpha_3 = x$,then $-3\alpha_{2} + 10x = -1 \implies \alpha_{2} = \frac{10x + 1}{3}$.\\
+Substituting $\alpha_{2}$ in row$_1$,
+\begin{align*}
+	\alpha_{1} + 10\left(\frac{10x + 1}{3}\right) + 3x & = 3                       \\
+	\alpha_{1} + \frac{100}{3}x + \frac{10}{3} + 3x    & = 3                       \\
+	\alpha_{1} + \frac{109}{3}x + \frac{10}{3}         & = 3                       \\
+	\alpha_{1} + \frac{109x + 10}{3}                   & = 3                       \\
+	\alpha_{1}                                         & = 3 - \frac{109x + 10}{3} \\
+	\alpha_{1}                                         & = \frac{9 - 109x - 10}{3} \\
+	\alpha_1                                           & = \frac{-109x - 1}{3}
+\end{align*}
+
+\noindent Thus, the row vector $z = (3, 2)$ can be written as a linear combination of $u, v, w$ as $\begin{bmatrix} \frac{-109x -  1}{3} & \frac{10x + 1}{3}x & x \end{bmatrix}$.
+\\
+Putting $x = 0$, we get $\begin{bmatrix} \frac{-1}{3} & \frac{1}{3} & 0 \end{bmatrix}$.
+
+
+
+\problem{3}{3 \emph{Points}}
+\textbf{To Show. } Product of 2 upper triangular matrices is an upper triangular matrix.\\
+\textbf{Solution. } A square matrix $U$ is upper triangular if $u_{ij} = 0$ for all $i > j; i, j \in \mathbb{N}$. Let $A$ and $B$ be two upper triangular matrices of order $n \times n$. Let $C = AB$.\\
+Let $c_{ij}$ be the element at $i^{th}$ row and $j^{th}$ column of $C$. Then $c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj}$. Since $A$ and $B$ are upper triangular, $a_{ik} = 0$ for all $i > k$ and $b_{kj} = 0$ for all $j > k$.\\
+\\
+We have to show that $c_{ij} = 0$ for all $i > j$.\\
+To have a non-zero entry $[c_{ij}]$, both $a_{ik}$ and $b_{kj}$ must be non-zero.
+\\
+For $i > j$: \\ Let us consider that $a_{ik} \neq 0$, then $i \leq k$. And similarly, $b_{kj} \neq 0$, then $k \leq j$. Combining both, we get $i \leq k \leq j$. But this is not possible as $i > j$. Thus, $c_{ij} = 0$ for all $i > j \qquad \square$.\\
+\\
+\textbf{To Show. } Show that the above is true for lower triangular matrices.\\
+\textbf{Solution. } A square matrix $L$ is lower triangular if $l_{ij} = 0$ for all $i < j$. Let $A$ and $B$ be two lower triangular matrices of order $n \times n$. Let $C = AB$.\\
+Let $c_{ij}$ be the element at $i^{th}$ row and $j^{th}$ column of $C$. Then $c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj}$. Since $A$ and $B$ are lower triangular, $a_{ik} = 0$ for all $i < k$ and $b_{kj} = 0$ for all $k < j$.\\
+\\
+We have to show that $c_{ij} = 0$ for all $i < j$.\\
+To have a non-zero entry $[c_{ij}]$, both $a_{ik}$ and $b_{kj}$ must be non-zero.
+\\
+For $i < j$: \\ Let us consider that $a_{ik} \neq 0$, then $i \geq k$. And similarly, $b_{kj} \neq 0$, then $k \geq j$. Combining both, we get $i \geq k \geq j$. But this is not possible as $i < j$. Thus, $c_{ij} = 0$ for all $i < j \qquad \square$.
+
+\problem{4}{1+2 \emph{Points}}
+\textbf{To Show. } trace($A + B$) = trace($A$) + trace($B$).\\
+\textbf{Solution. } The trace of a matrix is the sum of the diagonal elements, for a square matrix $A$ of order $n \times n$, trace($A$) = $\sum_{i=1}^{n} a_{ii}$.
+\begin{align*}
+	\text{trace}(A + B) & = \sum_{i=1}^{n} (a_{ii} + b_{ii})              \\
+	                    & = \sum_{i=1}^{n} a_{ii} + \sum_{i=1}^{n} b_{ii} \\
+	                    & = \text{trace}(A) + \text{trace}(B)
+\end{align*} Thus, trace($A + B$) = trace($A$) + trace($B$) $\qquad \square$.
+\\
+\\
+\textbf{To Show. } trace($AB$) = trace($BA$), for $A, B \in \mathbb{R}^{n \times n}$.\\
+\textbf{Solution. }  Let $A$ and $B$ be two square matrices of order $n \times n$. Diagonal entries of $AB$ are given by $c_{ii} = \sum_{k=1}^{n} a_{ik}b_{ki}$. Similarly, diagonal entries of $BA$ are given by $d_{ii} = \sum_{k=1}^{n} b_{ik}a_{ki}$.\\
+\begin{align*}
+	\text{trace}(AB) & = \sum_{i=1}^{n} \sum_{k=1}^{n} a_{ik}b_{ki} \\
+	                 & = \sum_{k=1}^{n} \sum_{i=1}^{n} b_{ki}a_{ik} \\
+	                 & = \text{trace}(BA)
+\end{align*} Thus, trace($AB$) = trace($BA$) $\qquad \square$.
+
+
+
+
+\end{document}
